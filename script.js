@@ -1,0 +1,118 @@
+//linearSearch - very easy
+
+function linearSearch(array,item){
+   for(let i =0; i< array.length;i++){
+      if(array[i] === item){
+         return i;
+      }
+   }
+}
+console.time('FirstWay');
+console.log(linearSearch([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],4))
+console.timeEnd('FirstWay');
+//binarySearch - easy / recursion - no 
+function binarySearch(array,item){
+   let start = 0
+   let end = array.length
+   let middle
+   let found = false
+   let position = -1
+   while(found === false && start <= end){
+      middle = Math.floor((start + end) /2)
+      if(array[middle]===item){
+         found = true
+         position = middle
+         return position
+      }
+      if(item < array[middle]){
+         end = middle - 1
+      }else{
+         start = middle + 1
+      }
+   }
+   return position
+}
+console.time('FirstWay');
+console.log('no recursive: ',binarySearch([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],4))
+console.timeEnd('FirstWay');
+//recursiveBinarySearch - medium / recursion - yes
+let array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
+function recursiveBinarySearch(array,item,start,end){
+   let middle = Math.floor( (start + end) / 2)
+   if(item === array[middle]){
+     return middle 
+   }
+   if(item < array[middle]){
+      return recursiveBinarySearch(array,item,start,middle -1)
+   }else{
+      return recursiveBinarySearch(array,item,middle+1,end)
+   }
+}
+console.time('FirstWay');
+console.log('recursive: ',recursiveBinarySearch(array,4,0,array.length))
+console.timeEnd('FirstWay');
+//selectionSort - easy /speed - slow
+
+function selectionSort(array){
+   for(let i = 0;i < array.length; i++){
+      let indexMin = i;
+      for(let j = i + 1;j < array.length; j++){
+         if(array[j] < array[indexMin]){
+            indexMin = j
+         }
+      }
+      let tmp = array[i]
+      array[i] = array[indexMin]
+      array[indexMin] = tmp
+      
+   }
+   return array
+}
+console.time('FirstWay');
+console.log(selectionSort([5,1,3,77,56,876,326,765,23,35,67,67,67344,234,65,2234 ]))
+console.timeEnd('FirstWay');
+
+//bubbleSort - very easy /speed - very slow
+
+function bubbleSort(array){
+   for(let i = 0; i< array.length;i++){
+      for(let j = 0; j< array.length;j++){
+         if(array[j+1]< array[j]){
+            let tmp = array[j]
+            array[j] = array[j+1]
+            array[j+1] = tmp
+
+         }
+      }
+   }
+   return array
+}
+console.time('FirstWay');
+console.log(bubbleSort([5,1,3,77,56,876,326,765,23,35,67,67,67344,234,65,2234 ]))
+console.timeEnd('FirstWay');
+//quickSort - medium / speed - fast
+
+function quickSort(array){
+   if(array.length <= 1){
+      return array
+   }
+   let pivotIndex = Math.floor(array.length/2)
+   let pivot = array[pivotIndex]
+   let less = []
+   let greater = []
+   for(let i = 0;i < array.length; i++){
+      if(i === pivotIndex){
+         continue
+      }
+      if(array[i]< pivot){
+         less.push(array[i])
+      }else{
+         greater.push(array[i])
+      }
+   }
+   return [...quickSort(less),pivot,...quickSort(greater)]
+}
+console.time('FirstWay');
+console.log(quickSort([5,1,3,77,56,876,326,765,23,35,67,67,67344,234,65,2234 ]))
+console.timeEnd('FirstWay');
+
